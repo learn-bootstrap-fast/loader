@@ -338,6 +338,8 @@ public class Phrases {
 			" #kidsmodelsstyle ",
 			" #athletes ",
 			" #cheerful_dancers ",
+			" #cheerleading ",
+			" #cheersport ",
 			" #teenactivewear ",
 			" #flexiandfit ",
 			" #fashionblogger ",
@@ -345,7 +347,6 @@ public class Phrases {
 			" #gymnast ",
 			" #positiveenergy ",
 			" #motivation ",
-			" #bling ",
 			" #supermodel ",
 			" #contortionclass ",
 			" #teenagerfashion ",
@@ -363,7 +364,6 @@ public class Phrases {
 			" #flexiblegirls ",
 			" #youngbeauty ",
 			" #gymnasticsshoutout ",
-			" #amazingweekend ",
 			" #workout ",
 			" #teenfitess  "};
 	
