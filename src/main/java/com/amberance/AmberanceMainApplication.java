@@ -27,15 +27,36 @@ public class AmberanceMainApplication {
 	public static int multiImageCount;
 	public static HashSet<String> hashtags = new HashSet<String>();
 
+	
+	public static final String ROOT_DIRECTORY = "d:\\_aggregate\\";
+	
 	public static void main(String[] args) throws Exception {
-		loopThroughAllJsonFiles();
+		
+		//String rootDirectory = "D:\\organize";
+		List<String> result = null;
+		try (Stream<Path> walk = Files.list(Paths.get(ROOT_DIRECTORY))) {
+			result = walk.filter(p -> Files.isDirectory(p))
+					// this is a path, not string,
+					// this only test if path end with a certain path
+					// .filter(p -> p.endsWith(fileExtension))
+					// convert path to string first
+					.map(p -> p.toString().toLowerCase())
+					// .filter(f -> f.endsWith(fileExtension))
+					.collect(Collectors.toList());
+		}
+
+		for (String dirLocation : result) {
+			//String dirLocation = "D:\\di";
+			loopThroughAllJsonFiles(dirLocation);
+		}
 
 	}
 
-	public static void loopThroughAllJsonFiles() throws Exception {
-		String dirLocation = "C:\\_instaloader\\austin.dylan_\\saved";
-		String fileExtension = "json";
-		String username = "";
+	public static void loopThroughAllJsonFiles(String dirLocation) throws Exception {
+		//String dirLocation = "D:\\di";
+		//String fileExtension = "json";
+		String username = dirLocation.replace(ROOT_DIRECTORY, "");
+		System.out.println("Username and dirlocation is: " + username);
 		List<String> result = null;
 		try (Stream<Path> walk = Files.list(Paths.get(dirLocation))) {
 			result = walk.filter(p -> Files.isDirectory(p))
@@ -68,16 +89,16 @@ public class AmberanceMainApplication {
 //				//continue;
 //				
 //			}
-			username="";
+			//username="";
 			if( folderHasSingleFileOfType(fullPath, ".mp4") && isFileType(jsonFilePath, "\"__typename\": \"GraphVideo\",")) {
-				username = ProcessGraphVideo.process(jsonFilePath);
+				//username = ProcessGraphVideo.process(jsonFilePath);
 				videoCount++;
 			}
 			else {
 				//System.out.println("SIDECAR!!!");
 				if( isFileType(jsonFilePath, "\"__typename\": \"GraphSidecar\",")) {
 					multiImageCount = multiImageCount+1;
-					username = processMultiImageFile(jsonFilePath);
+					//username = processMultiImageFile(jsonFilePath);
 				}
 			}
 			writePostFile(fullPath, username);
